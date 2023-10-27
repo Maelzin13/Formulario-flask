@@ -17,6 +17,39 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password',
                              id='pwd_login',
                              validators=[DataRequired()])
+    
+class MusicForm(FlaskForm):
+    name = StringField('Username',
+                         id='username_login',
+                         validators=[DataRequired()])
+    email = StringField('Password',
+                             id='',
+                             validators=[DataRequired()])
+    city = StringField('Password',
+                             id='',
+                             validators=[DataRequired()])
+    address = StringField('Password',
+                             id='',
+                             validators=[DataRequired()])
+    birth_date = StringField('Password',
+                             id='',
+                             validators=[DataRequired()])
+    baptism_date = StringField('Password',
+                             id='',
+                             validators=[DataRequired()])
+    officialization_date = StringField('Password',
+                             id='',
+                             validators=[DataRequired()])
+    in_charge = StringField('Password',
+                             id='',
+                             validators=[DataRequired()])
+    instructor = StringField('Password',
+                             id='',
+                             validators=[DataRequired()])
+    baptism = StringField('Password',
+                             id='',
+                             validators=[DataRequired()])
+                             
 
 
 class CreateAccountForm(FlaskForm):

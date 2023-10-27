@@ -57,7 +57,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form id="quickForm">
+            <form method="POST">
               
               <div class="card-body">
                 <div class="row">
@@ -70,9 +70,9 @@
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Data de Nascimento</label>
-                        <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
-                            <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                        <div class="input-group date" id="dataNascimento" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#dataNascimento"/>
+                            <div class="input-group-append" data-target="#dataNascimento" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
@@ -117,12 +117,12 @@
                       <input type="text" class="form-control" placeholder="">
                     </div>
                   </div>
-                  <div class="col-sm-6">
+                  <!-- <div class="col-sm-6">
                     <div class="form-group">
                       <label>Tonalidade</label>
                       <input type="text" class="form-control" placeholder="">
                     </div>
-                  </div>
+                  </div> -->
                   <div class="col-sm-6">
                     <!-- select -->
                     <div class="form-group">
@@ -142,9 +142,9 @@
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Data de Batismo</label>
-                        <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
-                            <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                        <div class="input-group date" id="dataBatismo" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#dataBatismo"/>
+                            <div class="input-group-append" data-target="#dataBatismo" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
@@ -153,9 +153,9 @@
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Data de Oficialização</label>
-                        <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate"/>
-                            <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                        <div class="input-group date" id="dataOficializacao" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#dataOficializacao"/>
+                            <div class="input-group-append" data-target="#dataOficializacao" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
@@ -206,11 +206,22 @@
                 
               </div>
               <!-- /.card-body -->
-              <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Enviar</button>
-              </div>
-              <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Limpar</button>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="row">
+                    <div class="form-group mb-0">
+                      <div class="card-footer">
+                        <!-- <button type="submit" class="btn btn-primary" id="enviarForm">Enviar</button> -->
+                        <button type="submit" name="musicForm" class="btn btn-primary" id="enviarForm">Enviar</button>
+                      </div>
+                    </div>
+                    <div class="form-group mb-0">
+                      <div class="card-footer">
+                        <button type="button" class="btn btn-primary" id="limparFormulario">Limpar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </form>
           </div>
@@ -273,7 +284,15 @@
     $('[data-mask]').inputmask()
 
     //Date range picker
-    $('#reservationdate').datetimepicker({
+    $('#dataNascimento').datetimepicker({
+        format: 'L'
+    });
+
+    $('#dataBatismo').datetimepicker({
+        format: 'L'
+    });
+
+    $('#dataOficializacao').datetimepicker({
         format: 'L'
     });
     //Date range picker
@@ -324,6 +343,11 @@
 
     $("input[data-bootstrap-switch]").each(function(){
       $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    });
+
+    $('#limparFormulario').on('click', function() {
+      // Limpar os valores dos campos de entrada
+      $('#quickForm')[0].reset();
     });
 
   })

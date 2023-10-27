@@ -12,8 +12,8 @@ from flask_login import (
 
 from apps import db, login_manager
 from apps.authentication import blueprint
-from apps.authentication.forms import LoginForm, CreateAccountForm
-from apps.authentication.models import Users
+from apps.authentication.forms import LoginForm, CreateAccountForm, MusicForm
+from apps.authentication.models import Musicos, Users
 
 from apps.authentication.util import verify_pass
 
@@ -52,6 +52,33 @@ def login():
         return render_template('accounts/login.html',
                                form=login_form)
     return redirect(url_for('home_blueprint.index'))
+
+# @blueprint.route('/Form309', methods=['GET', 'POST'])
+# def musicForm():
+#     music_form = MusicForm(request.form)
+#     if 'musicForm' in request.form:
+#         model = Musicos(request.form)
+#         db.session.add(model)
+#         # Something (user or pass) is not ok
+#         return render_template('accounts/Form309.html',
+#                                msg='Wrong user or password',
+#                                form=music_form)
+
+#     if not current_user.is_authenticated:
+#         return render_template('accounts/Form309.html',
+#                                form=music_form)
+#     return redirect(url_for('home_blueprint.index'))
+
+@blueprint.route('/Form309', methods=['GET', 'POST'])
+def musicForm():
+    music_form = MusicForm(request.form)
+    if request.method == 'POST' and music_form.validate():
+        model = Musicos(**music_form.data)
+        db.session.add(model)
+        db.session.commit()
+        return redirect(url_for('authentication_blueprint.route_default'))
+    return render_template('accounts/Form309.html', form=music_form)
+
 
 
 @blueprint.route('/register', methods=['GET', 'POST'])
