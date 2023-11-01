@@ -56,22 +56,34 @@
               <h3 class="card-title">Formúlario do Irmão ou  Irmão</h3>
             </div>
             <!-- /.card-header -->
+
+            {% if success_message %}
+            <div class="alert alert-success">
+                {{ success_message }}
+            </div>
+            {% endif %}
+            
+            {% if error_message %}
+            <div class="alert alert-danger">
+                {{ error_message }}
+            </div>
+            {% endif %}
             <!-- form start -->
-            <form method="POST">
+            <form method="POST" action="/Form309" id="form309">
               
               <div class="card-body">
                 <div class="row">
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Nome</label>
-                      <input type="nome" class="form-control" placeholder="preencha seu nome">
+                      <input type="nome" name="name" class="form-control" placeholder="preencha seu nome">
                     </div>
                   </div>
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Data de Nascimento</label>
                         <div class="input-group date" id="dataNascimento" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" data-target="#dataNascimento"/>
+                            <input type="text" class="form-control datetimepicker-input" name="birth_date" data-target="#dataNascimento"/>
                             <div class="input-group-append" data-target="#dataNascimento" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
@@ -84,24 +96,26 @@
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label for="exampleInputEmail1">Email</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                      <input type="email" class="form-control" name="email"  placeholder="Enter email">
                     </div>
                   </div>
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Endereço</label>
-                      <input type="text" class="form-control" placeholder="Endereço">
+                      <input type="text" class="form-control" name="address" placeholder="Endereço">
                     </div>
                   </div>
                 </div>
 
                 <div class="row">
+
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Cidade</label>
-                      <input type="text" class="form-control" placeholder="">
+                      <input type="text" class="form-control" name="city" placeholder="">
                     </div>
                   </div>
+
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Telefone/Celular</label>
@@ -117,73 +131,78 @@
                       <input type="text" class="form-control" placeholder="">
                     </div>
                   </div>
-                  <!-- <div class="col-sm-6">
-                    <div class="form-group">
-                      <label>Tonalidade</label>
-                      <input type="text" class="form-control" placeholder="">
-                    </div>
-                  </div> -->
+
                   <div class="col-sm-6">
-                    <!-- select -->
                     <div class="form-group">
                       <label>Tonalidade</label>
-                      <select class="custom-select">
-                        <option>option 1</option>
-                        <option>option 2</option>
-                        <option>option 3</option>
-                        <option>option 4</option>
-                        <option>option 5</option>
+                      <select class="custom-select" name="tonalidade">
+                        <option>Do Maior (C)</option>
+                        <option>Do Sustenido Maior (C#)</option>
+                        <option>Ré Maior (D)</option>
+                        <option>Ré Sustenido Maior (D#)</option>
+                        <option>Mi Maior (E)</option>
+                        <option>Fá Maior (F)</option>
+                        <option>Fá Sustenido Maior (F#)</option>
+                        <option>Sol Maior (G)</option>
+                        <option>Sol Sustenido Maior (G#)</option>
+                        <option>Lá Maior (A)</option>
+                        <option>Lá Sustenido Maior (A#)</option>
+                        <option>Si Maior (B)</option>
                       </select>
                     </div>
                   </div>
                 </div>
 
                 <div class="row">
+
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Data de Batismo</label>
                         <div class="input-group date" id="dataBatismo" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" data-target="#dataBatismo"/>
+                            <input type="text" class="form-control datetimepicker-input"  name="baptism_date" data-target="#dataBatismo"/>
                             <div class="input-group-append" data-target="#dataBatismo" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
                     </div>                    
                   </div>
+
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Data de Oficialização</label>
                         <div class="input-group date" id="dataOficializacao" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" data-target="#dataOficializacao"/>
+                            <input type="text" class="form-control datetimepicker-input" name="officialization_date" data-target="#dataOficializacao"/>
                             <div class="input-group-append" data-target="#dataOficializacao" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
                     </div>
                   </div>
+
                 </div>
+
                 <div class="row">
                   <div class="col-sm-6">
                     <div class="row">
                       <div class="form-group mb-0">
                         <label for="encarregado">Encarregado</label>
                         <div class="custom-control custom-radio custom-control-inline">
-                          <input type="radio" name="encarregado" class="custom-control-input" id="encarregado_sim" value="sim">
+                          <input type="radio" name="in_charge" class="custom-control-input" id="encarregado_sim" value="sim">
                           <label class="custom-control-label" for="encarregado_sim">Sim</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                          <input type="radio" name="encarregado" class="custom-control-input" id="encarregado_nao" value="nao">
+                          <input type="radio" name="in_charge" class="custom-control-input" id="encarregado_nao" value="nao">
                           <label class="custom-control-label" for="encarregado_nao">Não</label>
                         </div>
                       </div>
                       <div class="form-group mb-0">
                         <label for="instrutor">Instrutor(a)</label>
                         <div class="custom-control custom-radio custom-control-inline">
-                          <input type="radio" name="instrutor" class="custom-control-input" id="instrutor_sim" value="sim">
+                          <input type="radio" name="instructor" class="custom-control-input" id="instrutor_sim" value="sim">
                           <label class="custom-control-label" for="instrutor_sim">Sim</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                          <input type="radio" name="instrutor" class="custom-control-input" id="instrutor_nao" value="nao">
+                          <input type="radio" name="instructor" class="custom-control-input" id="instrutor_nao" value="nao">
                           <label class="custom-control-label" for="instrutor_nao">Não</label>
                         </div>
                       </div>
@@ -193,11 +212,11 @@
                     <div class="form-group mb-0">
                       <label for="batizado">Batizado</label>
                        <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" name="batismo" class="custom-control-input" id="batizado_sim" value="sim">
+                        <input type="radio" name="baptism" class="custom-control-input" id="batizado_sim" value="sim">
                         <label class="custom-control-label" for="batizado_sim">Sim</label>
                       </div>
                        <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" name="batismo" class="custom-control-input" id="batizado_nao" value="nao">
+                        <input type="radio" name="baptism" class="custom-control-input" id="batizado_nao" value="nao">
                         <label class="custom-control-label" for="batizado_nao">Não</label>
                       </div>
                     </div>
@@ -211,8 +230,8 @@
                   <div class="row">
                     <div class="form-group mb-0">
                       <div class="card-footer">
-                        <!-- <button type="submit" class="btn btn-primary" id="enviarForm">Enviar</button> -->
-                        <button type="submit" name="musicForm" class="btn btn-primary" id="enviarForm">Enviar</button>
+                        <button type="button" class="btn btn-primary" id="enviarForm">Enviar</button>
+                        <!-- <button type="submit" name="musicForm" class="btn btn-primary" id="enviarForm">Enviar</button> -->
                       </div>
                     </div>
                     <div class="form-group mb-0">
@@ -348,6 +367,11 @@
     $('#limparFormulario').on('click', function() {
       // Limpar os valores dos campos de entrada
       $('#quickForm')[0].reset();
+    });
+
+    $('#enviarForm').on('click', function() {
+      // Enviar o formulário
+      $('#form309').submit();
     });
 
   })

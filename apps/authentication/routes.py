@@ -2,13 +2,15 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
-
+import logging
 from flask import render_template, redirect, request, url_for
 from flask_login import (
     current_user,
     login_user,
     logout_user
 )
+
+from flask import session
 
 from apps import db, login_manager
 from apps.authentication import blueprint
@@ -53,32 +55,47 @@ def login():
                                form=login_form)
     return redirect(url_for('home_blueprint.index'))
 
-# @blueprint.route('/Form309', methods=['GET', 'POST'])
-# def musicForm():
-#     music_form = MusicForm(request.form)
-#     if 'musicForm' in request.form:
-#         model = Musicos(request.form)
-#         db.session.add(model)
-#         # Something (user or pass) is not ok
-#         return render_template('accounts/Form309.html',
-#                                msg='Wrong user or password',
-#                                form=music_form)
-
-#     if not current_user.is_authenticated:
-#         return render_template('accounts/Form309.html',
-#                                form=music_form)
-#     return redirect(url_for('home_blueprint.index'))
-
-@blueprint.route('/Form309', methods=['GET', 'POST'])
+@blueprint.route('/Form309', methods=['POST'])
 def musicForm():
     music_form = MusicForm(request.form)
     if request.method == 'POST' and music_form.validate():
-        model = Musicos(**music_form.data)
-        db.session.add(model)
-        db.session.commit()
-        return redirect(url_for('authentication_blueprint.route_default'))
-    return render_template('accounts/Form309.html', form=music_form)
+        try:
+            # Criar um objeto Musicos com os dados do formulário
+            model = Musicos(
+                name=request.form['name'],
+                birth_date=request.form['birth_date'],
+                email=request.form['email'],
+                address=request.form['address'],
+                city=request.form['city'],
+                in_charge=request.form['in_charge'],
+                instructor=request.form['instructor'],
+                baptism=request.form['baptism'],
+                baptism_date=request.form['baptism_date'],
+                officialization_date=request.form['officialization_date']
+            )
 
+            db.session.add(model)
+            db.session.commit()
+            logging.info("Objeto Musicos salvo no banco de dados")
+
+            # Armazenar mensagem de sucesso na variável de sessão
+            session['success_message'] = "Dados salvos com sucesso!"
+        except Exception as e:
+            logging.error(f"Erro ao salvar objeto Musicos no banco de dados: {e}")
+
+            # Armazenar mensagem de erro na variável de sessão
+            session['error_message'] = "Erro ao salvar os dados. Por favor, tente novamente."
+
+        # Redirecionar para a rota padrão
+        return redirect(url_for('authentication_blueprint.route_default'))
+
+    # Se houver erros de validação no formulário, eles serão exibidos normalmente
+
+    # Recuperar mensagens da variável de sessão e definir valores padrão
+    success_message = session.pop('success_message', None)
+    error_message = session.pop('error_message', None)
+
+    return render_template('accounts/Form309.html', form=music_form, success_message=success_message, error_message=error_message)
 
 
 @blueprint.route('/register', methods=['GET', 'POST'])
